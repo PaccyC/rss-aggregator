@@ -10,7 +10,12 @@ import (
 	"github.com/go-chi/cors"
 
 	"github.com/joho/godotenv"
+	"gitgub.com/PaccyC/rss-aggregator/internal/database"
 )
+
+type apiConfig struct {
+	DB *Database.Queries
+}
 
 func main(){
 	godotenv.Load(".env")
