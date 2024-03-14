@@ -57,7 +57,7 @@ if err != nil {
 	return
 	}
 	for _ ,item := range rssFeed.Channel.Item{
-		log.Println("Post found , ", item.Title)
+		log.Println("Post found , ", item.Title, "on feed ",feed.Name)
 	}
 	log.Printf("Feed %s collected, %v post found", feed.Name, len(rssFeed.Channel.Item))
 

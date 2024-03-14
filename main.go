@@ -6,13 +6,13 @@ import (
 	"log"
 	"net/http"
 	"os"
-
+	"time"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
 
-	"github.com/joho/godotenv"
 	"github.com/PaccyC/rss-aggregator/internal/database"
+	"github.com/joho/godotenv"
 
 	_ "github.com/lib/pq"
 )
@@ -51,10 +51,14 @@ func main(){
 	log.Fatal("Can't connect to database",err)
   }
 
-
+    db := database.New(conn)
    apiCfg := apiConfig{
-	DB:database.New(conn),
+	DB:db,
    }
+
+   go startScraping(db,10,time.Minute)
+
+
  router:= chi.NewRouter()
  router.Use(cors.Handler(cors.Options{
 	AllowedOrigins: []string{"https://*","http://*"},
